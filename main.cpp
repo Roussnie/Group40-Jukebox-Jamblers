@@ -61,15 +61,38 @@ int main()
 	}
 	file.close();
 
-	cout << song.count << endl;
+	//cout << song.count << endl;
 
-	/*
+	string input = "";
+	cout << "Enter a word: \n";
+	getline(cin, input);
+
+	vector<int>index;
+	
+	string word = "";
+
 	for (int i = 0; i < song.count; i++) {
-		cout << song.artistVect[i] << "    " << song.nameVect[i] << "    " << song.yearVect[i] << " " << song.popularityVect[i] << "\n";
-
+		for (auto x : song.nameVect[i]) {
+			if (x == ' ') {
+				if (input == word) {
+					index.push_back(i);
+				}
+				word = ""; 
+			}
+			else {
+				word += x;
+			}
+		}
+		word = "";
 	}
-	*/
+
+	for (int i = 0; i < index.size(); i++) {
+		cout << song.artistVect[index[i]] << ", " << song.nameVect[index[i]] << ", " <<
+			song.yearVect[index[i]] << ", " << song.popularityVect[index[i]] << "\n";
+	}
+	
 
 	return 0;
 }
 
+//https://www.geeksforgeeks.org/split-a-sentence-into-words-in-cpp/
