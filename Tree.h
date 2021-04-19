@@ -146,7 +146,11 @@ void JJTree::PrintInorder(struct TreeNode*& root, string artist, string name, in
 	}
 
 	PrintInorder(root->left, root->artist, root->name, root->popularity, root->releaseYear);
-	cout << root->artist << ", " << root->name << ", " << root->popularity << ", " << root->releaseYear << endl;;
+	cout << "Title: " << root->name << endl;
+	cout << "Artist: " << root->artist << endl;
+	cout << "Year of Release: " << root->releaseYear << endl;
+	cout << "Popularity: " << root->popularity << endl;
+	cout << endl;
 	PrintInorder(root->right, root->artist, root->name, root->popularity, root->releaseYear);
 
 }
