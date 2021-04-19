@@ -165,6 +165,11 @@ int main()
         word = "";
     }
     
+    if (index.size() == 0) {
+        cout << "Sorry, we dont have any songs matching " << wordInput << ". Goodbye. \n";
+        return 0;
+    }
+    
     //user chooses data structure
     cout << "Which Data Stucture would you like to use?\n";
     cout << "1. Set\n";
@@ -175,9 +180,8 @@ int main()
     getline(cin, input1);
     cout << endl;
     
-    cout << "We have " << index.size() << " songs similar to '" << wordInput << "'." << endl;
-    cout << "Here they are: \n";
-    cout << endl;
+        cout << "We have " << index.size() << " song(s) similar to '" << wordInput << "':\n" << endl;
+
     
     if (input1 == "1"){
         
@@ -211,5 +215,6 @@ int main()
 
 
 //Sources:
+//https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks
 //https://www.geeksforgeeks.org/split-a-sentence-into-words-in-cpp/
 //Roussnie's Project 1 AVL Tree implementation 
