@@ -101,7 +101,10 @@ set<Song> CreateSet(Song song, vector<int> index){
 int main()
 {
     Song song;
-
+    JJTree tree;    
+    set<Song> songSet;
+    TreeNode* root = nullptr;
+    
     /*======= Load data from file(s) =======*/
     ifstream file("P3_song_data csv.csv");
 
@@ -134,58 +137,51 @@ int main()
         }
     }
     file.close();
-
-    //cout << song.count << endl;
     
     //*********Interface*********//
     cout << "Welcome to the Jukebox Jambler!" << endl;
     
     //user enters word to search for
     string wordInput = "";
-    cout << "Enter a word: \n";
-    cout << "" << endl;
+    cout << "Enter a word based on what you would like to hear: ";
     getline(cin, wordInput);
+    cout << endl;
     
-    //user chooses data structure
-    cout << "Which Data Stucture would you like to use?" << endl;
-    cout << "1. Set" << endl;
-    cout << "2. Tree" << endl;
-    cout << "" << endl;
-    cout << "Selection: " << endl;
-    cout << "" << endl;
-    string input1 = "";
-    getline(cin, input1);
-    
-    
-    vector<int> index;
-    
+    vector<int>index;
+
     string word = "";
 
     for (int i = 0; i < song.count; i++) {
-        
         for (auto x : song.nameVect[i]) {
-            
             if (x == ' ') {
-                
-                if (wordInput == word) {
+                if (input == word) {
                     index.push_back(i);
                 }
                 word = "";
             }
             else {
-                
                 word += x;
             }
         }
         word = "";
     }
     
+    //user chooses data structure
+    cout << "Which Data Stucture would you like to use?\n";
+    cout << "1. Set\n";
+    cout << "2. Tree\n";
+    cout << "Selection: ";
+
+    string input1 = "";
+    getline(cin, input1);
+    cout << endl;
+    
     if (input1 == "1"){
         
-        set<Song> songSet = CreateSet(song, index); //creates the set
+        songSet = CreateSet(song, index); //creates the set
         
-        cout << "Songs similar to '" << wordInput << "':" << endl;
-        cout << "" << endl;
+        cout << "We have " << index.size() << " songs similar to '" << wordInput << endl;
+        cout << "Here they are: \n";
         
         for(const auto& s : songSet){ //prints set
             
@@ -193,13 +189,18 @@ int main()
             cout << "Artist: " << s.artist << endl;
             cout << "Year of Release: " << s.releaseYear << endl;
             cout << "Popularity: " << s.popularity << endl;
-            cout << "" << endl;
+            cout << endl;
         }
         
         
     } else if(input1 == "2"){
         
-        //create tree
+        for (int i = 0; i < index.size(); i++) {  //creates the tree
+            tree.Insert(root, index[i], song.artistVect[index[i]], song.nameVect[index[i]], song.popularityVect[index[i]], song.yearVect[index[i]]);
+        }
+        
+        tree.PrintInorder(root, root->artist, root->name, root->popularity, root->releaseYear);
+                
     }
     
 
