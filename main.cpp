@@ -209,4 +209,7 @@ int main()
     return 0;
 }
 
+
+//Sources:
 //https://www.geeksforgeeks.org/split-a-sentence-into-words-in-cpp/
+//Roussnie's Project 1 AVL Tree implementation 
