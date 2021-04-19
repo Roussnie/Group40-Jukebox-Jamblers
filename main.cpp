@@ -1,11 +1,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <map>
 #include <set>
 #include <fstream>
 #include <sstream>
-
+#include "Tree.h"
 using namespace std;
 
 struct Song {
@@ -154,7 +153,7 @@ int main()
     for (int i = 0; i < song.count; i++) {
         for (auto x : song.nameVect[i]) {
             if (x == ' ') {
-                if (input == word) {
+                if (wordInput == word) {
                     index.push_back(i);
                 }
                 word = "";
@@ -176,12 +175,13 @@ int main()
     getline(cin, input1);
     cout << endl;
     
+    cout << "We have " << index.size() << " songs similar to '" << wordInput << "'." << endl;
+    cout << "Here they are: \n";
+    cout << endl;
+    
     if (input1 == "1"){
         
         songSet = CreateSet(song, index); //creates the set
-        
-        cout << "We have " << index.size() << " songs similar to '" << wordInput << endl;
-        cout << "Here they are: \n";
         
         for(const auto& s : songSet){ //prints set
             
@@ -191,17 +191,19 @@ int main()
             cout << "Popularity: " << s.popularity << endl;
             cout << endl;
         }
-        
-        
-    } else if(input1 == "2"){
+    } 
+    else if(input1 == "2"){
         
         for (int i = 0; i < index.size(); i++) {  //creates the tree
             tree.Insert(root, index[i], song.artistVect[index[i]], song.nameVect[index[i]], song.popularityVect[index[i]], song.yearVect[index[i]]);
         }
-        
         tree.PrintInorder(root, root->artist, root->name, root->popularity, root->releaseYear);
                 
     }
+    else {
+        cout << "Invalid entry!\n";
+    }
+    
     
 
     return 0;
