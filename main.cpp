@@ -9,6 +9,7 @@
 using namespace std;
 
 struct Song {
+    
     string artist;
     string name;
     int popularity = 0;
@@ -77,25 +78,25 @@ struct Song {
     }
 };
 
-set<Song> CreateSet(int count, Song song){
+set<Song> CreateSet(Song song, vector<int> index){
     
     set<Song> songSet;
     
-    for (int i = 0; i < count; i++){
+    for (int i = 0; i < index.size(); i++) {
         
         Song temp; //make a temporary song
         
-        //copy the key components
-        temp.artist = song.artistVect[i];
-        temp.name = song.nameVect[i];
-        temp.popularity = song.popularityVect[i];
-        temp.releaseYear = song.yearVect[i];
+        temp.artist = song.artistVect[index[i]];
+        temp.name = song.nameVect[index[i]];
+        temp.popularity = song.popularityVect[index[i]];
+        temp.releaseYear = song.yearVect[index[i]];
         
         songSet.insert(temp); //insert it into the set
     }
     
     return songSet;
 }
+
 
 int main()
 {
@@ -138,17 +139,63 @@ int main()
     
     //*********Interface*********//
     cout << "Welcome to the Jukebox Jambler!" << endl;
+    
+    //user enters word to search for
+    string wordInput = "";
+    cout << "Enter a word: \n";
+    cout << "" << endl;
+    getline(cin, wordInput);
+    
+    //user chooses data structure
     cout << "Which Data Stucture would you like to use?" << endl;
     cout << "1. Set" << endl;
     cout << "2. Tree" << endl;
+    cout << "" << endl;
     cout << "Selection: " << endl;
+    cout << "" << endl;
     string input1 = "";
     getline(cin, input1);
     
+    
+    vector<int> index;
+    
+    string word = "";
+
+    for (int i = 0; i < song.count; i++) {
+        
+        for (auto x : song.nameVect[i]) {
+            
+            if (x == ' ') {
+                
+                if (wordInput == word) {
+                    index.push_back(i);
+                }
+                word = "";
+            }
+            else {
+                
+                word += x;
+            }
+        }
+        word = "";
+    }
+    
     if (input1 == "1"){
         
-        int count = song.count;
-        set<Song> songSet = CreateSet(count, song); //creates the set
+        set<Song> songSet = CreateSet(song, index); //creates the set
+        
+        cout << "Songs similar to '" << wordInput << "':" << endl;
+        cout << "" << endl;
+        
+        for(const auto& s : songSet){ //prints set
+            
+            cout << "Title: " << s.name << endl;
+            cout << "Artist: " << s.artist << endl;
+            cout << "Year of Release: " << s.releaseYear << endl;
+            cout << "Popularity: " << s.popularity << endl;
+            cout << "" << endl;
+        }
+        
         
     } else if(input1 == "2"){
         
@@ -156,37 +203,7 @@ int main()
     }
     
 
-    string input = "";
-    cout << "Enter a word: \n";
-    getline(cin, input);
-
-    vector<int>index;
-    
-    string word = "";
-
-    for (int i = 0; i < song.count; i++) {
-        for (auto x : song.nameVect[i]) {
-            if (x == ' ') {
-                if (input == word) {
-                    index.push_back(i);
-                }
-                word = "";
-            }
-            else {
-                word += x;
-            }
-        }
-        word = "";
-    }
-
-    for (int i = 0; i < index.size(); i++) {
-        cout << song.artistVect[index[i]] << ", " << song.nameVect[index[i]] << ", " <<
-            song.yearVect[index[i]] << ", " << song.popularityVect[index[i]] << "\n";
-    }
-    
-
     return 0;
 }
 
 //https://www.geeksforgeeks.org/split-a-sentence-into-words-in-cpp/
-
