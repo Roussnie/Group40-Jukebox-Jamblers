@@ -152,19 +152,11 @@ int main()
 
     string word = "";
 
-    for (int i = 0; i < song.count; i++) {
-        for (auto x : song.nameVect[i]) {
-            if (x == ' ') {
-                if (wordInput == word) {
-                    index.push_back(i);
-                }
-                word = "";
-            }
-            else {
-                word += x;
-            }
+    for (int i = 0; i < song.count; i++) {  
+        size_t found = song.nameVect[i].find(wordInput);
+        if (found != string::npos) { 
+            index.push_back(i);
         }
-        word = "";
     }
 
     if (index.size() == 0) {
@@ -213,5 +205,5 @@ int main()
 
 
 //Sources:
-//https://www.geeksforgeeks.org/split-a-sentence-into-words-in-cpp/
+//https://www.geeksforgeeks.org/string-find-in-cpp/
 //Roussnie Project 1 Implementation
