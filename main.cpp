@@ -4,6 +4,7 @@
 #include <set>
 #include <fstream>
 #include <sstream>
+#include <ctime>
 #include "Tree.h"
 using namespace std;
 
@@ -152,9 +153,9 @@ int main()
 
     string word = "";
 
-    for (int i = 0; i < song.count; i++) {  
+    for (int i = 0; i < song.count; i++) {
         size_t found = song.nameVect[i].find(wordInput);
-        if (found != string::npos) { 
+        if (found != string::npos) {
             index.push_back(i);
         }
     }
@@ -178,6 +179,7 @@ int main()
 
     if (input1 == "1") {
 
+        clock_t setTimerBegin = clock(); //start and create timer
         songSet = CreateSet(song, index); //creates the set
 
         for (const auto& s : songSet) { //prints set
@@ -188,16 +190,31 @@ int main()
             cout << "Popularity: " << s.popularity << endl;
             cout << endl;
         }
+        
+        clock_t setTimerEnd = clock(); //end timer
+        
+        clock_t setTimeElapsed = double(setTimerEnd - setTimerBegin) / CLOCKS_PER_SEC * 1000; //calculate duration in ms
+        
+        cout << "Using a set took " << setTimeElapsed << " milliseconds!" << endl;
     }
     else if (input1 == "2") {
 
+        clock_t treeTimerBegin = clock(); //start and create timer
+        
         for (int i = 0; i < index.size(); i++) {  //creates the tree
             tree.Insert(root, index[i], song.artistVect[index[i]], song.nameVect[index[i]], song.popularityVect[index[i]], song.yearVect[index[i]]);
         }
         tree.PrintInorder(root, root->artist, root->name, root->popularity, root->releaseYear);
 
+        
+        clock_t treeTimerEnd = clock(); //end timer
+        
+        clock_t treeTimeElapsed = double(treeTimerEnd - treeTimerBegin) / CLOCKS_PER_SEC * 1000; //calculate duration in ms
+        
+        cout << "Using a tree took " << treeTimeElapsed << " milliseconds!" << endl;
     }
     else {
+        
         cout << "Invalid entry!\n";
     }
     return 0;
