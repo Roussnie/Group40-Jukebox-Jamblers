@@ -215,7 +215,7 @@ int main()
     }
     else {
         
-        cout << "Invalid entry!\n";
+        cout << "Invalid entry! Goodbye.\n";
     }
     return 0;
 }
@@ -224,3 +224,4 @@ int main()
 //Sources:
 //https://www.geeksforgeeks.org/string-find-in-cpp/
 //Roussnie Project 1 Implementation
+//http://www.cplusplus.com/forum/beginner/99555/
